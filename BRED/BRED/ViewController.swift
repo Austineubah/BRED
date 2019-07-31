@@ -47,16 +47,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //usersReference.updateChildValues(textMessage)
         
-        usersReference.updateChildValues(textMessage, withCompletionBlock: { (err, ref) in
-            
-            // check for error with uploading email and name to Firebase Database
-            if err != nil {
-                
-                print(err!)
-                return
-            }
-            
-        })
+        usersReference.updateChildValues(textMessage)
         
         print(message)
         textMessageBox.text = ""
