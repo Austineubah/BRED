@@ -18,9 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-J0-XIN">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-J0-XIN">
                                 <rect key="frame" x="146" y="311" width="122" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.60310071239999996" blue="4.9463011660000003e-05" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Send">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -29,19 +28,37 @@
                                     <action selector="send:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RlO-8a-i3U"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jaM-yH-a0V" userLabel="MessageBox">
-                                <rect key="frame" x="138" y="236" width="138" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jaM-yH-a0V" userLabel="MessageBox">
+                                <rect key="frame" x="148.5" y="236" width="117" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YZA-5u-TbI">
+                                <rect key="frame" x="70" y="420" width="274" height="404"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="YZA-5u-TbI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Hd-qE-0Mz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YZA-5u-TbI" secondAttribute="bottom" constant="38" id="J2m-d6-vP7"/>
+                            <constraint firstItem="jaM-yH-a0V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="192" id="Q2R-d8-gbO"/>
+                            <constraint firstItem="LlB-J0-XIN" firstAttribute="top" secondItem="jaM-yH-a0V" secondAttribute="bottom" constant="45" id="Vlz-I6-ZGd"/>
+                            <constraint firstItem="LlB-J0-XIN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="146" id="eA9-1p-KLe"/>
+                            <constraint firstItem="YZA-5u-TbI" firstAttribute="top" secondItem="LlB-J0-XIN" secondAttribute="bottom" constant="79" id="lRj-e8-JaA"/>
+                            <constraint firstItem="YZA-5u-TbI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="mxp-Zx-yo6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jaM-yH-a0V" secondAttribute="trailing" constant="148.5" id="s6K-wU-x3h"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YZA-5u-TbI" secondAttribute="trailing" constant="70" id="uFC-2O-htH"/>
+                            <constraint firstItem="jaM-yH-a0V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="148.5" id="uQ3-zi-UKy"/>
+                            <constraint firstItem="jaM-yH-a0V" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uev-Bi-OGP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LlB-J0-XIN" secondAttribute="trailing" constant="146" id="vJ7-bq-vx0"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="sendButton" destination="LlB-J0-XIN" id="OcW-pt-z8a"/>
+                        <outlet property="tableView" destination="YZA-5u-TbI" id="3bY-ce-LaY"/>
                         <outlet property="textMessageBox" destination="jaM-yH-a0V" id="vF8-YN-n98"/>
                     </connections>
                 </viewController>

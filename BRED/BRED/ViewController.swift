@@ -9,11 +9,15 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var textMessageBox: UITextField!
     
     @IBOutlet weak var sendButton: UIButton!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var messages: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         sendButton.layer.cornerRadius = sendButton.frame.height/4
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        messages = []
+        
+        observeMessages()
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -34,23 +45,61 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func send(_ sender: Any) {
-        guard let message = textMessageBox.text else {
+        
+        guard let message = textMessageBox.text else { return }
+                
+        if message != "" {
+            let ref = Database.database().reference(fromURL: "https://bred-e8d96.firebaseio.com/")
+            
+            let usersReference = ref.child("messages")
+            
+            let messageID = usersReference.childByAutoId().key
+            
+            let textMessage = [messageID: message]
+            
+            //usersReference.updateChildValues(textMessage)
+            
+            usersReference.updateChildValues(textMessage, withCompletionBlock: { (err, ref) in
+                
+                // check for error with uploading email and name to Firebase Database
+                if err != nil {
+                    
+                    print(err!)
+                    return
+                }
+                
+            })
+            
             textMessageBox.text = ""
-            return
+            
         }
+    
+    }
+    
+    func observeMessages() {
         
         let ref = Database.database().reference(fromURL: "https://bred-e8d96.firebaseio.com/")
         
-        let usersReference = ref.child("users")
+        let usersReference = ref.child("messages")
         
-        let textMessage = ["message": message]
+        usersReference.observe(.childAdded, with: { (snapshot) in
+            guard let message = snapshot.value as? String else { return }
+            self.messages.append(message)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
         
-        //usersReference.updateChildValues(textMessage)
-        
-        usersReference.updateChildValues(textMessage)
-        
-        print(message)
-        textMessageBox.text = ""
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.textLabel?.text = messages[indexPath.row]
+        return cell
     }
 
 }
