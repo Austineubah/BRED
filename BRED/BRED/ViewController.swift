@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         
         
-        
+        // allows you to listen and fetch data from text box
         textMessageBox.delegate = self
         
         sendButton.layer.cornerRadius = sendButton.frame.height/4
@@ -38,6 +38,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
             textMessageBox.text = ""
             return
         }
+        
+        let ref = Database.database().reference(fromURL: "https://bred-e8d96.firebaseio.com/")
+        
+        let usersReference = ref.child("users")
+        
+        let textMessage = ["message": message]
+        
+        //usersReference.updateChildValues(textMessage)
+        
+        usersReference.updateChildValues(textMessage, withCompletionBlock: { (err, ref) in
+            
+            // check for error with uploading email and name to Firebase Database
+            if err != nil {
+                
+                print(err!)
+                return
+            }
+            
+        })
         
         print(message)
         textMessageBox.text = ""
